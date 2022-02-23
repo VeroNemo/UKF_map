@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FindRoom"
+    android:orientation="vertical"
+    android:background="@color/bcg_color2">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="10px"
+        android:paddingTop="30px"
+        android:paddingRight="30px"
+        android:paddingBottom="30px">
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:minWidth="48dp"
+            android:onClick="backToMain"
+            android:src="@drawable/icon_back"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/txt_titleForActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:fontFamily="@font/bree_serif"
+            android:gravity="center"
+            android:text="Nájsť učebňu"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/layout_shape"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/mini_layout_shape"
+                    android:orientation="vertical"
+                    android:paddingLeft="30px"
+                    android:paddingTop="30px"
+                    android:paddingRight="30px"
+                    android:paddingBottom="30px">
+
+                    <TextView
+                        android:id="@+id/txt_miniTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bree_serif"
+                        android:text="Blok A"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <ListView
+                        android:id="@+id/listViewA"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="157dp"
+                    android:layout_marginTop="30px"
+                    android:background="@drawable/mini_layout_shape"
+                    android:orientation="vertical"
+                    android:paddingLeft="30px"
+                    android:paddingTop="30px"
+                    android:paddingRight="30px"
+                    android:paddingBottom="30px">
+
+                    <TextView
+                        android:id="@+id/txt_miniTitle2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bree_serif"
+                        android:text="Blok B"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <ListView
+                        android:id="@+id/listViewB"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="234dp"
+                    android:layout_marginTop="30px"
+                    android:background="@drawable/mini_layout_shape"
+                    android:orientation="vertical"
+                    android:paddingLeft="30px"
+                    android:paddingTop="30px"
+                    android:paddingRight="30px"
+                    android:paddingBottom="30px">
+
+                    <TextView
+                        android:id="@+id/txt_miniTitle3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bree_serif"
+                        android:text="Blok C"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <ListView
+                        android:id="@+id/listViewC"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="103dp"
+                    android:layout_marginTop="30px"
+                    android:background="@drawable/mini_layout_shape"
+                    android:orientation="vertical"
+                    android:paddingLeft="30px"
+                    android:paddingTop="30px"
+                    android:paddingRight="30px"
+                    android:paddingBottom="30px">
+
+                    <TextView
+                        android:id="@+id/txt_miniTitle4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bree_serif"
+                        android:text="Blok S"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <ListView
+                        android:id="@+id/listViewS"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="144dp"
+                    android:layout_marginTop="30px"
+                    android:background="@drawable/mini_layout_shape"
+                    android:orientation="vertical"
+                    android:paddingLeft="30px"
+                    android:paddingTop="30px"
+                    android:paddingRight="30px"
+                    android:paddingBottom="30px">
+
+                    <TextView
+                        android:id="@+id/txt_miniTitle5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bree_serif"
+                        android:text="Blok P"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <ListView
+                        android:id="@+id/listViewP"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+</LinearLayout>

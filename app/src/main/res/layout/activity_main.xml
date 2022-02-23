@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bcg_color"
+    android:orientation="vertical"
+    android:paddingLeft="30px"
+    android:paddingTop="30px"
+    android:paddingRight="30px"
+    android:paddingBottom="30px"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_lookForFloors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:height="150px"
+            android:fontFamily="@font/bree_serif"
+            android:text="Zobraziť poschodia"
+            android:backgroundTint="@color/btn_color"
+            android:onClick="activityFindFloor"
+            app:cornerRadius="30px" />
+
+        <Button
+            android:id="@+id/btn_lookForRoom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:height="150px"
+            android:fontFamily="@font/bree_serif"
+            android:backgroundTint="@color/btn_color"
+            android:text="Nájsť učebňu"
+            android:onClick="activityFindRoom"
+            app:cornerRadius="30px" />
+
+        <Button
+            android:id="@+id/btn_lookForRoute"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:height="150px"
+            android:fontFamily="@font/bree_serif"
+            android:backgroundTint="@color/btn_color"
+            android:text="Zobraziť trasu do učebne"
+            android:onClick="activityFindRouteToRoom"
+            app:cornerRadius="30px" />
+    </LinearLayout>
+</LinearLayout>
