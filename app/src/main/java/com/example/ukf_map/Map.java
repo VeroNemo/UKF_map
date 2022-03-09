@@ -37,21 +37,41 @@ public class Map extends View {
 
     private String room, blok;
     public Context context;
-    private float y, cellSize, displayWidth, displayHeight, viewHeight;
-    private int position;
+    private float cellSize = 0, displayWidth, displayHeight, viewHeight, canvasWidth, canvasHeight, canvasY;
+    private int position, nodeX, nodeY;
     private Canvas bitmapCanvas, canvas;
     private Bitmap bitmap;
     private Paint paint;
+    private ArrayList<Integer> coordinatesAll = new ArrayList<>();
     private float[] cornerLT = new float[]{5,5,0,0,0,0,0,0};
     private float[] cornerRT = new float[]{0,0,5,5,0,0,0,0};
     private float[] cornerLB = new float[]{0,0,0,0,0,0,5,5};
     private float[] cornerRB = new float[]{0,0,0,0,5,5,0,0};
 
 
-    public Map(Context context, AttributeSet attrs) {
-        super(context, attrs);
+    public Map(Context context, String room, String blok, float w, float h, int position, float cellSize, int[] n, Canvas c, int nodeX, int nodeY) {
+        super(context);
         this.context = context;
+        this.room = room;
+        this.blok = blok;
+        this.canvasWidth = w; //počet písmen na šírku
+        this.canvasHeight = h; //počet písmen na dĺžku
+        this.position = position;
+        this.cellSize = cellSize;
+        this.nodeX = nodeX;
+        this.nodeY = nodeY;
+
+        for(int k = 0; k < n.length; k+=2) {
+            if(n[k] != 0) { //vyberám iba neprázdne polia
+                coordinatesAll.add(n[k]);
+                coordinatesAll.add(n[k+1]);
+            }
+        }
+
         paint = new Paint();
+
+        this.canvas = c;
+        draw(canvas);
     }
 
     public void setParameters(String room, String blok, float w, float h, int position, int layoutTopH) {
@@ -63,36 +83,58 @@ public class Map extends View {
         this.viewHeight = h - (layoutTopH+200);
 
         if(blok.equals("P")) {
-            cellSize = displayWidth/359;
-            y = ((viewHeight-getNavigationBarHeight())/2) - (56*cellSize);
+            //cellSize = displayWidth/359;
+            //y = ((viewHeight-getNavigationBarHeight())/2) - (56*cellSize);
         } else if(blok.equals("S")) {
-            cellSize = displayWidth/92;
-            y = ((viewHeight-getNavigationBarHeight())/2) - (23*cellSize);
+            //cellSize = displayWidth/92;
+            //y = ((viewHeight-getNavigationBarHeight())/2) - (23*cellSize);
         } else {
-            cellSize = displayWidth/149;
-            y = ((viewHeight-getNavigationBarHeight())/2) - (20*cellSize);
+            //cellSize = displayWidth/149;
+            //y = ((viewHeight-getNavigationBarHeight())/2) - (20*cellSize);
         }
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        bitmap = Bitmap.createBitmap((int)displayWidth, (int)displayHeight, Bitmap.Config.ARGB_8888);
+        bitmap = Bitmap.createBitmap((int)canvasWidth*(int)cellSize, (int)canvasHeight*(int)cellSize + 200, Bitmap.Config.ARGB_8888);
         bitmapCanvas = new Canvas(bitmap);
         createMap(bitmapCanvas);
-       // canvas.save();
-      //  canvas.rotate(50);
-       // canvas.translate(-40, -40);
-       // canvas.scale(3.f, 3.f);
-        canvas.drawBitmap(bitmap, 0, 0, paint);
-      //  canvas.restore();
+
+        for(int i=0; i<coordinatesAll.size(); i+=2){
+            System.out.println("[" + coordinatesAll.get(i) + "," + coordinatesAll.get(i+1) + "]");
+        }
+        //canvas.save();
+        //canvas.rotate(50);
+        //canvas.translate(-40, -40);
+        //canvas.scale(3.f, 3.f);
+        //canvas.drawBitmap(bitmap, 0, 0, paint);
+        //canvas.restore();
+    }
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+    public Canvas getCanvas() {
+        return canvas;
     }
 
     private void createMap(Canvas canvas) {
         String line = "";
-        int resID = context.getResources().getIdentifier("floor_"+blok.toLowerCase() + room.charAt(0), "raw", context.getPackageName());
+        int resID = 0;
+        String txt = "";
+        if(blok.equals("X")) { // cez to poschodie prechádzam a nehľadám v ňom miestnosť
+            resID = context.getResources().getIdentifier(room, "raw", context.getPackageName());
+            txt = "" + room.charAt(6) + room.charAt(7);
+        } else {
+            resID = context.getResources().getIdentifier("floor_"+blok.toLowerCase() + room.charAt(1), "raw", context.getPackageName());
+            txt = blok.toLowerCase() + room.charAt(1);
+        }
+
         InputStream inputStream = this.getResources().openRawResource(resID);
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+        float y = 0;
         while (true) {
             try {
                 if((line = reader.readLine()) == null) break;
@@ -166,6 +208,28 @@ public class Map extends View {
                         paint.setColor(Color.rgb(241, 241, 241));
                         canvas.drawRect(x*cellSize,y,(x*cellSize)+cellSize, y+cellSize, paint);
                         break;
+                    case 'K':
+                        paint.setColor(Color.RED);
+                        if(nodeX > 0 && nodeY > 0) {
+                            if(txt.equals("v")) {
+                                if(nodeY == canvasHeight) {
+                                    canvas.drawRect(x*cellSize,y,(x*cellSize)+cellSize, y+cellSize, paint);
+                                }
+                            } else if(txt.equals("b1")) {
+                                if((int)(y-cellSize) == nodeY) {
+                                    canvas.drawRect(x*cellSize,y,(x*cellSize)+cellSize, y+cellSize, paint);
+                                }
+                            } else {
+                                if(x <= nodeX) {
+                                    canvas.drawRect(x*cellSize,y,(x*cellSize)+cellSize, y+cellSize, paint);
+                                }
+                            }
+                        }
+                        break;
+                    case 'E':
+                    case 'S':
+                    case 'U':
+                        break;
                     default:
                         paint.setColor(Color.WHITE);
                         canvas.drawRect(x*cellSize,y,(x*cellSize)+cellSize, y+cellSize, paint);
@@ -178,6 +242,10 @@ public class Map extends View {
                 }
             }
             y+=cellSize;
+        }
+        paint.setColor(Color.RED);
+        for(int i = 0; i < coordinatesAll.size(); i += 2) {
+            canvas.drawRect(coordinatesAll.get(i)*cellSize, coordinatesAll.get(i+1)*cellSize, (coordinatesAll.get(i)*cellSize)+cellSize, (coordinatesAll.get(i+1)*cellSize)+cellSize, paint);
         }
     }
 

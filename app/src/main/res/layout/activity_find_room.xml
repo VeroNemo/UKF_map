@@ -74,10 +74,16 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
-                    <ListView
-                        android:id="@+id/listViewA"
+                    <TextView
+                        android:id="@+id/txt_miniTitle_a"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bree_serif"
+                        android:onClick="clickFloorA"
+                        android:text="226"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -186,6 +192,28 @@
                         android:id="@+id/listViewP"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30px"
+                    android:background="@drawable/mini_layout_shape"
+                    android:orientation="vertical"
+                    android:paddingLeft="30px"
+                    android:paddingTop="30px"
+                    android:paddingRight="30px"
+                    android:paddingBottom="30px">
+
+                    <TextView
+                        android:id="@+id/txt_miniTitle6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bree_serif"
+                        android:onClick="clickFloorV"
+                        android:text="Hlavný vchod"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

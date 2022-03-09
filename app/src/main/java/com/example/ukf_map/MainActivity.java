@@ -21,11 +21,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void activityFindRoom(View view) {
         Intent intent = new Intent(MainActivity.this, FindRoom.class);
+        intent.putExtra("instructions", "classic");
         startActivity(intent);
     }
 
     public void activityFindRouteToRoom(View view) {
-        Intent intent = new Intent(MainActivity.this, FindRouteToRoom.class);
+        Intent intent = new Intent(MainActivity.this, FindRoom.class);
+        intent.putExtra("instructions", "from");
         startActivity(intent);
     }
 }
