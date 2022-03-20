@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UKF_map">
         <activity
+            android:name=".FindRouteToRoom2"
+            android:exported="false" />
+        <activity
             android:name=".MapForRooms"
             android:exported="false" />
         <activity

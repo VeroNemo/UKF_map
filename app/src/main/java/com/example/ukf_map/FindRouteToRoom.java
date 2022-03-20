@@ -83,7 +83,7 @@ public class FindRouteToRoom extends AppCompatActivity {
             countFileHeight = 0;
 
             int resID = getResources().getIdentifier(floors[i], "raw", getPackageName());
-            InputStream inputStream = this.getResources().openRawResource(resID);
+            InputStream inputStream = getResources().openRawResource(resID);
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             while (true) {
                 try {

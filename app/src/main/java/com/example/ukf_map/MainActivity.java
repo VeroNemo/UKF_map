@@ -26,8 +26,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void activityFindRouteToRoom(View view) {
-        Intent intent = new Intent(MainActivity.this, FindRoom.class);
-        intent.putExtra("instructions", "from");
+        //Intent intent = new Intent(MainActivity.this, FindRoom.class);
+        Intent intent = new Intent(MainActivity.this, FindRouteToRoom2.class);
+        //intent.putExtra("instructions", "from");
+        intent.putExtra("floor", "0");
         startActivity(intent);
     }
 }
