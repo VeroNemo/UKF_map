@@ -14,6 +14,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    public void activityFindBlok(View view) {
+        Intent intent = new Intent(MainActivity.this, FindBlok.class);
+        startActivity(intent);
+    }
+
     public void activityFindFloor(View view) {
         Intent intent = new Intent(MainActivity.this, FindFloor.class);
         startActivity(intent);
@@ -21,15 +26,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void activityFindRoom(View view) {
         Intent intent = new Intent(MainActivity.this, FindRoom.class);
-        intent.putExtra("instructions", "classic");
         startActivity(intent);
     }
 
     public void activityFindRouteToRoom(View view) {
-        //Intent intent = new Intent(MainActivity.this, FindRoom.class);
-        Intent intent = new Intent(MainActivity.this, FindRouteToRoom2.class);
-        //intent.putExtra("instructions", "from");
-        intent.putExtra("floor", "0");
+        Intent intent = new Intent(MainActivity.this, FindRouteToRoom3.class);
         startActivity(intent);
     }
 }

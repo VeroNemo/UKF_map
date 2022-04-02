@@ -17,20 +17,16 @@ public class DijkstraAlgorithm {
 
     private void dijkstra(int[][] graphMap, int startNode, int finalNode) {
         numberOfNodes = graphMap[0].length;
-
         distance = new int[numberOfNodes];
         visited = new boolean[numberOfNodes];
         parents = new int[numberOfNodes];
-
         for (int i = 0; i < numberOfNodes; i++) { // zatiaľ nebol žiaden uzol preskúmaný ani žiadna vzdialenosť
             distance[i] = Integer.MAX_VALUE;
             parents[i] = Integer.MAX_VALUE;
             visited[i] = false;
         }
-
         distance[startNode] = 0; //začiatočný uzol nemá žiadnu vzdialenosť od sám seba
         parents[startNode] = NO_PARENT; //začiatočný uzol nemá rodiča
-
         for (int i = 1; i < numberOfNodes; i++) {
             int nextNode = -1;
             int shortestDistance = Integer.MAX_VALUE;
@@ -40,14 +36,10 @@ public class DijkstraAlgorithm {
                     shortestDistance = distance[j];
                 }
             }
-            if(nextNode == finalNode) {
-                break;
-            }
+            if(nextNode == finalNode) break;
             visited[nextNode] = true;
-
             for (int k = 0; k < numberOfNodes; k++) {
                 int edgeDistance = graphMap[nextNode][k];
-
                 if (edgeDistance > 0 && ((shortestDistance + edgeDistance) < distance[k])) {
                     parents[k] = nextNode;
                     distance[k] = shortestDistance + edgeDistance;

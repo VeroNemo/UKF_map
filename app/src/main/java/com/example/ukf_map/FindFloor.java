@@ -1,21 +1,163 @@
 package com.example.ukf_map;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.Point;
+import android.graphics.RectF;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.Display;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageView;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Field;
+import java.text.DateFormat;
 
 public class FindFloor extends AppCompatActivity {
+
+    private final int MAX_WIDTH = 508;
+    final int MAX_HEIGHT = 432;
+
+    private ImageView imageViewFloor;
+    public Button button0;
+    private Canvas canvas;
+    private Paint paint;
+    private Bitmap bitmap;
+    private float displayWidth, displayHeight, cellSize;
+    public int btn_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_floor);
+
+        imageViewFloor = (ImageView) findViewById(R.id.imageViewFloors);
+
+        WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point distances = new Point();
+        display.getSize(distances);
+        displayWidth = distances.x;
+        displayHeight = distances.y;
+        cellSize = displayWidth/MAX_WIDTH;
+
+        bitmap = Bitmap.createBitmap((int)displayWidth, (int)MAX_HEIGHT+20, Bitmap.Config.ARGB_8888);
+        canvas = new Canvas(bitmap);
+        paint = new Paint();
+
+        drawFloors(0);
+        button0 = (Button) findViewById(R.id.btn_0);
+        button0.setBackgroundColor(getResources().getColor(R.color.bcg_color2));
     }
 
-    public void backToMain(View view) {
-        Intent intent = new Intent(FindFloor.this, MainActivity.class);
-        startActivity(intent);
+    public void changeFloor(View view) {
+        canvas.drawColor(getResources().getColor(R.color.white));
+        if(btn_ID != 0) {
+            Button button = (Button) findViewById(btn_ID);
+            button.setBackgroundColor(getResources().getColor(R.color.btn_color));
+        } else button0.setBackgroundColor(getResources().getColor(R.color.btn_color));
+        switch (view.getId()) {
+            case R.id.btn_0:
+                drawFloors(0);
+                break;
+            case R.id.btn_1:
+                drawFloors(1);
+                break;
+            case R.id.btn_2:
+                drawFloors(2);
+                break;
+            case R.id.btn_3:
+                drawFloors(3);
+                break;
+        }
+        btn_ID = view.getId();
+        Button button2 = (Button) findViewById(view.getId());
+        button2.setBackgroundColor(getResources().getColor(R.color.bcg_color2));
+    }
+
+    public void drawFloors(int floor){
+        Field [] files = R.raw.class.getFields();
+
+        for(int i = 0; i < files.length; i++){
+            String file = files[i].getName();
+            String[] helper = file.split("_");
+
+            String line = "";
+            float y = Float.parseFloat(helper[2]);
+
+            int resID = this.getResources().getIdentifier(file, "raw", this.getPackageName());
+            InputStream inputStream = this.getResources().openRawResource(resID);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+            if(helper[5].equals(""+floor)) {
+                while (true) {
+                    try {
+                        if ((line = reader.readLine()) == null) break;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    float x = Float.parseFloat(helper[1]);
+                    for (int a = 0; a < line.length(); a++) {
+                        RectF rectF = new RectF(x*cellSize, y, (x*cellSize)+cellSize, y+cellSize);
+
+                        switch (line.charAt(a)) {
+                            case 'X': //stena
+                            case 'Y': //chodba
+                            case 'R':
+                            case 'U':
+                            case 'K':
+                            case 'E':
+                            case 'S':
+                                paint.setColor(getResources().getColor(R.color.bcg_color));
+                                canvas.drawRect(rectF, paint);
+                                break;
+                            case '_': //schodisko
+                                paint.setColor(getResources().getColor(R.color.bcg_color));
+                                canvas.drawRect(x * cellSize, y, (x * cellSize) + cellSize, y + cellSize, paint);
+                                paint.setColor(getResources().getColor(R.color.black));
+                                canvas.drawLine(x * cellSize, y, (x * cellSize) + cellSize, y, paint);
+                                break;
+                            case '|': //schodisko
+                                paint.setColor(getResources().getColor(R.color.bcg_color));
+                                canvas.drawRect(x * cellSize, y, (x * cellSize) + cellSize, y + cellSize, paint);
+                                paint.setColor(getResources().getColor(R.color.black));
+                                canvas.drawLine((x * cellSize) + (cellSize / 2), y, (x * cellSize) + (cellSize / 2), y + cellSize, paint);
+                                break;
+                            case 'T': //schodisko
+                                paint.setColor(getResources().getColor(R.color.bcg_color));
+                                canvas.drawRect(x * cellSize, y, (x * cellSize) + cellSize, y + cellSize, paint);
+                                paint.setColor(getResources().getColor(R.color.black));
+                                canvas.drawLine((x * cellSize), y + (cellSize / 2), (x * cellSize) + cellSize, y + (cellSize / 2), paint);
+                                break;
+                            case 'Z':
+                                break;
+                            default:
+                                paint.setColor(Color.WHITE);
+                                canvas.drawRect(x * cellSize, y, (x * cellSize) + cellSize, y + cellSize, paint);
+                                break;
+                        }
+                        x++;
+                    }
+                    y++;
+                }
+            }
+        }
+        imageViewFloor.setImageBitmap(Bitmap.createScaledBitmap(bitmap, (int)(displayWidth*1.2), (int)(displayHeight*0.5), false));
     }
 }

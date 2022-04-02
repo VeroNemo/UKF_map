@@ -9,6 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="bcg_color">#DADAD9</color> //rgb 218,218,217
     <color name="bcg_color3">#F1F1F1</color> //rgb 241, 241, 241
-    <color name="btn_color">#5BC3EB</color> //rgb 91,195,235
-    <color name="bcg_color2">#595959</color> //rgb 89,89,89
+    <color name="btn_color">#5FC7F7</color> //rgb 95,199,247
+    <color name="bcg_color2">#A0B6CA</color> //rgb 160,182,202
 </resources>

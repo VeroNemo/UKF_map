@@ -39,7 +39,7 @@ public class FindRouteToRoom extends AppCompatActivity {
     private int[] paths;
     private int[] finalPathFloor;
     private int roomFrom = 0, roomTo = 0, positionFrom = 0, positionTo = 0;
-    private ArrayList<Map> maps = new ArrayList<>();
+    //private ArrayList<Map> maps = new ArrayList<>();
     private ImageView imageView;
     private Canvas canvas;
 
@@ -253,23 +253,23 @@ public class FindRouteToRoom extends AppCompatActivity {
             int h = Character.getNumericValue(helper.charAt(i));
             if(i == 0) {
                 System.out.println("Index mapy: "+h);
-                maps.add(new Map(getApplicationContext(), from, from.charAt(0) + "", dimensionsOfFiles[h][1], dimensionsOfFiles[h][2], positionFrom, dimensionsOfFiles[h][0], finalPathCoordinates[h], new Canvas(), coordinatesOfNodes[roomFrom-1][0], coordinatesOfNodes[roomFrom-1][1]));
+                //maps.add(new Map(getApplicationContext(), from, from.charAt(0) + "", dimensionsOfFiles[h][1], dimensionsOfFiles[h][2], positionFrom, dimensionsOfFiles[h][0], finalPathCoordinates[h], new Canvas(), coordinatesOfNodes[roomFrom-1][0], coordinatesOfNodes[roomFrom-1][1]));
             } else if(i == pathFloorsArray.length-1) {
                 System.out.println("Index mapy: "+h);
-                maps.add(new Map(getApplicationContext(), to, to.charAt(0) + "", dimensionsOfFiles[h][1], dimensionsOfFiles[h][2], positionTo, dimensionsOfFiles[h][0], finalPathCoordinates[h], new Canvas(), coordinatesOfNodes[roomTo-1][0], coordinatesOfNodes[roomTo-1][1]));
+                //maps.add(new Map(getApplicationContext(), to, to.charAt(0) + "", dimensionsOfFiles[h][1], dimensionsOfFiles[h][2], positionTo, dimensionsOfFiles[h][0], finalPathCoordinates[h], new Canvas(), coordinatesOfNodes[roomTo-1][0], coordinatesOfNodes[roomTo-1][1]));
             } else if((!(pathFloorsArray[i].equals(pathFloorsArray[i-1]))) && (!(pathFloorsArray[i].equals(pathFloorsArray[pathFloorsArray.length-1])))){
                 System.out.println("Index mapy: "+h);
-                maps.add(new Map(getApplicationContext(), pathFloorsArray[i], "X", dimensionsOfFiles[h][1], dimensionsOfFiles[h][2], -1, dimensionsOfFiles[h][0], finalPathCoordinates[h], new Canvas(), 0, 0));
+                //maps.add(new Map(getApplicationContext(), pathFloorsArray[i], "X", dimensionsOfFiles[h][1], dimensionsOfFiles[h][2], -1, dimensionsOfFiles[h][0], finalPathCoordinates[h], new Canvas(), 0, 0));
             }
         }
 
-        for(int o = 0; o < maps.size(); o++) {
+       // for(int o = 0; o < maps.size(); o++) {
             //Bitmap bitmap = Bitmap.createBitmap((int)getDisplayWidth(), (int)getDisplayHeight(), Bitmap.Config.ARGB_8888);
             //Canvas c = new Canvas(maps.get(o).getBitmap());
             //c.drawColor(Color.RED);
-            imageView.setImageBitmap(maps.get(o).getBitmap());
+            //imageView.setImageBitmap(maps.get(o).getBitmap());
             setContentView(imageView);
-        }
+       // }
 
     }
 

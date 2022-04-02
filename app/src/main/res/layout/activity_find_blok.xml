@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bcg_color2"
+    tools:context=".FindBlok">
+
+    <LinearLayout
+        android:id="@+id/lin_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="30px"
+        android:paddingTop="30px"
+        android:paddingRight="30px"
+        android:paddingBottom="30px">
+
+        <TextView
+            android:id="@+id/txt_titleForActivity4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bree_serif"
+            android:gravity="center"
+            android:text="Bloky v budove univerzity"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/lin_down"
+        android:layout_below="@id/lin_up"
+        android:background="@drawable/layout_shape"
+        android:backgroundTint="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30px"
+            android:fontFamily="@font/bree_serif"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:id="@+id/imageViewBlok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin_down"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:paddingLeft="30px"
+        android:paddingTop="30px"
+        android:paddingRight="30px"
+        android:paddingBottom="30px">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_A"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20px"
+                    android:backgroundTint="@color/btn_color"
+                    android:fontFamily="@font/bree_serif"
+                    android:onClick="changeBlok"
+                    android:text="A"
+                    android:textColor="@color/black"
+                    app:cornerRadius="30px" />
+
+                <Button
+                    android:id="@+id/btn_B"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20px"
+                    android:backgroundTint="@color/btn_color"
+                    android:fontFamily="@font/bree_serif"
+                    android:onClick="changeBlok"
+                    android:text="B"
+                    android:textColor="@color/black"
+                    app:cornerRadius="30px" />
+
+                <Button
+                    android:id="@+id/btn_C"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20px"
+                    android:backgroundTint="@color/btn_color"
+                    android:fontFamily="@font/bree_serif"
+                    android:onClick="changeBlok"
+                    android:text="C"
+                    android:textColor="@color/black"
+                    app:cornerRadius="30px" />
+
+                <Button
+                    android:id="@+id/btn_P"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20px"
+                    android:backgroundTint="@color/btn_color"
+                    android:fontFamily="@font/bree_serif"
+                    android:onClick="changeBlok"
+                    android:text="P"
+                    android:textColor="@color/black"
+                    app:cornerRadius="30px" />
+
+                <Button
+                    android:id="@+id/btn_S"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/btn_color"
+                    android:fontFamily="@font/bree_serif"
+                    android:onClick="changeBlok"
+                    android:text="S"
+                    android:textColor="@color/black"
+                    app:cornerRadius="30px" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+    </LinearLayout>
+
+</RelativeLayout>

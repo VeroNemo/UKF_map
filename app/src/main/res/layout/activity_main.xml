@@ -1,32 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bcg_color"
-    android:orientation="vertical"
+    android:background="@color/white"
     android:paddingLeft="30px"
     android:paddingTop="30px"
     android:paddingRight="30px"
     android:paddingBottom="30px"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="700px"
+        android:layout_height="700px"
+        android:layout_centerHorizontal="true"
+        tools:srcCompat="@drawable/logo" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:gravity="bottom"
         android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_lookForBloks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:height="150px"
+            android:backgroundTint="@color/btn_color"
+            android:fontFamily="@font/bree_serif"
+            android:onClick="activityFindBlok"
+            android:text="Zobraziť bloky v budove"
+            android:textColor="@color/black"
+            app:cornerRadius="30px" />
 
         <Button
             android:id="@+id/btn_lookForFloors"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:height="150px"
-            android:fontFamily="@font/bree_serif"
-            android:text="Zobraziť poschodia"
             android:backgroundTint="@color/btn_color"
+            android:fontFamily="@font/bree_serif"
             android:onClick="activityFindFloor"
+            android:text="Zobraziť poschodia budovy"
+            android:textColor="@color/black"
             app:cornerRadius="30px" />
 
         <Button
@@ -34,10 +54,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:height="150px"
-            android:fontFamily="@font/bree_serif"
             android:backgroundTint="@color/btn_color"
-            android:text="Nájsť učebňu"
+            android:fontFamily="@font/bree_serif"
             android:onClick="activityFindRoom"
+            android:text="Nájsť učebňu"
+            android:textColor="@color/black"
             app:cornerRadius="30px" />
 
         <Button
@@ -45,10 +66,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:height="150px"
-            android:fontFamily="@font/bree_serif"
             android:backgroundTint="@color/btn_color"
-            android:text="Zobraziť trasu do učebne"
+            android:fontFamily="@font/bree_serif"
             android:onClick="activityFindRouteToRoom"
+            android:text="Navigovať"
+            android:textColor="@color/black"
             app:cornerRadius="30px" />
+
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

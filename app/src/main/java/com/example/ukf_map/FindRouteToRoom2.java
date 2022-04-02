@@ -34,7 +34,7 @@ public class FindRouteToRoom2 extends AppCompatActivity {
     final int MAX_WIDTH = 513;
     final int MAX_HEIGHT = 432;
 
-    private DrawMap drawMap;
+    //private DrawMap drawMap;
     private String[] filesNames;
     private float displayWidth, displayHeight, cellSize;
     private int floor;
@@ -47,7 +47,7 @@ public class FindRouteToRoom2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_find_route_to_room2);
 
-        Intent intent = getIntent();
+        /*Intent intent = getIntent();
         floor = Integer.parseInt(intent.getStringExtra("floor"));
         ImageView imageView = (ImageView) findViewById(R.id.imageView3);
 
@@ -70,7 +70,7 @@ public class FindRouteToRoom2 extends AppCompatActivity {
         //setContentView(drawMap);
         DrawView drawView = new DrawView(this, files, cellSize);
         drawView.setBackgroundColor(Color.rgb(241, 241, 241));
-        setContentView(drawView);
+        setContentView(drawView); */
     }
 
    /* @Override
