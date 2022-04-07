@@ -14,12 +14,14 @@ import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,12 +33,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class FindRouteToRoom3 extends AppCompatActivity {
 
-    public final String[] allRooms = {"a226", "b025", "b112", "b113", "b114", "b212", "c117", "c118", "c119", "c212", "c217", "c305", "p002", "p006", "s109", "s110"};
-    public final int[] positionsOfAllRooms = {0, 0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 5, 0, 1, 0, 1};
-    public final int[] colors = {Color.rgb(33, 150, 243), Color.rgb(76, 175, 80), Color.rgb(255, 235, 59), Color.rgb(244, 67, 54)};
+    private final String[] allRooms = {"A010", "A013", "A111", "A115", "A119", "A223", "A226", "B025", "B112", "B113", "B114", "B212", "C011", "C117", "C118", "C119", "C212", "C217", "C218", "C305", "P002", "P006", "S109", "S110"};
+    private final int[] positionsOfAllRooms = {0, 1, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 0, 1};
+    public final int[] colors = {Color.rgb(33, 150, 243), Color.rgb(76, 175, 80), Color.rgb(255, 152, 0), Color.rgb(244, 67, 54)};
     public final int MAX_WIDTH = 508;
     public final int MAX_HEIGHT = 435;
     public final int ALPHA = 40;
@@ -55,16 +58,18 @@ public class FindRouteToRoom3 extends AppCompatActivity {
 
     public AutoCompleteTextView autoCompleteTextViewFrom, autoCompleteTextViewTo;
     public ImageView imageView;
-    public Canvas canvas;
-    public Bitmap bitmap;
-    public Paint paint;
+    public Canvas cnvs;
+    public Bitmap btm;
+    public Paint pnt;
     public float displayWidth, displayHeight, cellSize;
     public Field[] files;
-    public String coordinatesFrom, coordinatesTo, stairs = "";
+    public String coordinatesFrom, coordinatesTo, stairs = "", roomFrom = "", roomTo = "";
     public Button button0;
-    public int btn_ID, btn_clicked = 0;
+    public int btn_ID, btn_clicked = 0, floorFrom = 0, floorTo = 0, zoomIn = 0;
     public BottomSheetBehavior behavior;
     public TextView title;
+    public LinearLayout linearLayoutRoute;
+    public RelativeLayout relativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,9 +112,9 @@ public class FindRouteToRoom3 extends AppCompatActivity {
         cellSize = displayWidth/MAX_WIDTH;
 
         //inicializovanie bitmapy, ktorá sa použije pri canvase pri vykresľovaní
-        bitmap = Bitmap.createBitmap((int)displayWidth*2, (int)displayHeight, Bitmap.Config.ARGB_8888);
-        canvas = new Canvas(bitmap);
-        paint = new Paint();
+        btm = Bitmap.createBitmap((int)displayWidth*2, (int)displayHeight, Bitmap.Config.ARGB_8888);
+        cnvs = new Canvas(btm);
+        pnt = new Paint();
 
         files = R.raw.class.getFields(); //uloženie textových súborov s mapami poschodí
         setPrimaryDataToArrayLists(); //nastavenie prvotných údajov do arrayListov a buttonov
@@ -162,22 +167,23 @@ public class FindRouteToRoom3 extends AppCompatActivity {
         behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         if(autoCompleteTextViewFrom.getText().toString().length() > 0 && autoCompleteTextViewTo.getText().toString().length() > 0) { //musia byť obidva inputy vyplnené
             if(!autoCompleteTextViewFrom.getText().toString().equals(autoCompleteTextViewTo.getText().toString())) { //nemôžu byť v inputoch rovnaké miestnosti
+                zoomIn = 0;
                 //základná inicializácia
                 title.setText("Trasa z miestnosti " + autoCompleteTextViewFrom.getText().toString() + " do miestnosti " + autoCompleteTextViewTo.getText().toString());
                 setPrimaryDataToArrayLists();
-                canvas.drawColor(Color.WHITE);
+                cnvs.drawColor(Color.WHITE);
                 stairs = "";
-                String roomFrom = autoCompleteTextViewFrom.getText().toString().toLowerCase();
-                String roomTo = autoCompleteTextViewTo.getText().toString().toLowerCase();
-                int floorFrom = Integer.parseInt(roomFrom.substring(1, 2));
-                int floorTo = Integer.parseInt(roomTo.substring(1, 2));
+                roomFrom = autoCompleteTextViewFrom.getText().toString().toLowerCase();
+                roomTo = autoCompleteTextViewTo.getText().toString().toLowerCase();
+                floorFrom = Integer.parseInt(roomFrom.substring(1, 2));
+                floorTo = Integer.parseInt(roomTo.substring(1, 2));
                 int positionFrom = 0;
                 int positionTo = 0;
 
                 //nastavenie pozície miestností aby sa potom vedeli nájsť v mape
                 for (int i = 0; i < allRooms.length; i++) {
-                    if (roomFrom.equals(allRooms[i])) positionFrom = positionsOfAllRooms[i];
-                    if (roomTo.equals(allRooms[i])) positionTo = positionsOfAllRooms[i];
+                    if (roomFrom.equals(allRooms[i].toLowerCase())) positionFrom = positionsOfAllRooms[i];
+                    if (roomTo.equals(allRooms[i].toLowerCase())) positionTo = positionsOfAllRooms[i];
                 }
 
                 //prehľadávanie v textových súboroch
@@ -240,7 +246,7 @@ public class FindRouteToRoom3 extends AppCompatActivity {
                     String[] helperCoordinatesT = coordinatesTo.split("_");
                     if (findRouteAlgorithm(arrayList.get(floorFrom), arrayList2.get(floorFrom), Integer.parseInt(helperCoordinatesF[0]), Integer.parseInt(helperCoordinatesF[1]), Integer.parseInt(helperCoordinatesT[0]), Integer.parseInt(helperCoordinatesT[1]))) {}
                 }
-                drawRoute(floorFrom); //vykreslenie mapy s trasou
+                drawRoute(floorFrom, pnt, cnvs, btm, 2, 3); //vykreslenie mapy s trasou
             } else Toast.makeText(getApplicationContext(),"Snažíte sa ísť do tých istých miestností", Toast.LENGTH_SHORT).show();
         } else Toast.makeText(getApplicationContext(),"Nemáte vyplnené údaje miestností", Toast.LENGTH_SHORT).show();
         autoCompleteTextViewTo.setText("");
@@ -285,26 +291,26 @@ public class FindRouteToRoom3 extends AppCompatActivity {
                             }
                         }
                     } else { //rôzne bloky
-                        if((roomFrom.substring(0,2).equals(helper[0] + helper[5]) || roomTo.substring(0,2).equals(helper[0] + helper[5])) && !helper[0].equals("p") && !(helper[0]+helper[5]).equals("b0")) {
+                        if((roomFrom.substring(0,2).equals(helper[0] + helper[5]) || roomTo.substring(0,2).equals(helper[0] + helper[5])) && !helper[0].equals("p") && !(helper[0]+helper[5]).equals("b0") && !(helper[0]+helper[5]).equals("a0") && !(helper[0]+helper[5]).equals("c0")) {
                             array[i][j] = 1;
                             stairs += helper[0] + helper[5] + "-" + i + "-" + j + "_";
                         }
-                        if((roomFrom.charAt(0) == 's' || roomTo.charAt(0) == 's') && (helper[0] + helper[5]).equals("b0")) { //do/z S musím ísť vždy cez B0_212
-                            if(i == 212) {
+                        if((roomFrom.charAt(0) == 's' || roomTo.charAt(0) == 's') && (helper[0] + helper[5]).equals("b0")) { //do/z S musím ísť vždy cez B0_219
+                            if(i == 219) {
                                 array[i][j] = 1;
                                 stairs += helper[0] + helper[5] + "-" + i + "-" + j + "_";
                             }
                         }
-                        if((roomFrom.charAt(0) == 'a' || roomTo.charAt(0) == 'a') && (helper[0] + helper[5]).equals("v0")) { //do/z A musím ísť vždy cez V0
+                        if(((roomFrom.charAt(0) == 'a' && floorFrom > 0) || (roomTo.charAt(0) == 'a' && floorTo > 0)) && (helper[0] + helper[5]).equals("v0")) { //do/z A musím ísť vždy cez V0
                             array[i][j] = 1;
                             stairs += helper[0] + helper[5] + "-" + i + "-" + j + "_";
                         }
-                        if((roomFrom.charAt(0) == 'c' || roomTo.charAt(0) == 'c') && (helper[0] + helper[5]).equals("p0")) { //do/z C musím ísť vždy cez P0
+                        if(((roomFrom.charAt(0) == 'c' && floorFrom > 0) || (roomTo.charAt(0) == 'c' && floorTo > 0)) && (helper[0] + helper[5]).equals("c0")) { //do/z C musím ísť vždy cez C0
                             array[i][j] = 1;
                             stairs += helper[0] + helper[5] + "-" + i + "-" + j + "_";
                         }
                         if(((roomFrom.charAt(0) == 'b' && floorFrom > 0) || (roomTo.charAt(0) == 'b' && floorTo > 0)) && (helper[0] + helper[5]).equals("b0")) { //do/z B musím ísť vždy cez B0_199
-                            if(i != 212) {
+                            if(i != 219) {
                                 array[i][j] = 1;
                                 stairs += helper[0] + helper[5] + "-" + i + "-" + j + "_";
                             }
@@ -318,7 +324,6 @@ public class FindRouteToRoom3 extends AppCompatActivity {
     }
 
     public boolean findRouteAlgorithm(int[][] array, int[][] arraySolved, int fromRow, int fromColumn, int toRow, int toColumn) {
-        System.out.println(fromRow + " " + fromColumn + " - " + toRow + " " + toColumn);
         //BACKTRACKING
         if(fromRow == toRow && fromColumn == toColumn && array[fromRow][fromColumn] == 1) {
             arraySolved[fromRow][fromColumn] = 1;
@@ -364,14 +369,14 @@ public class FindRouteToRoom3 extends AppCompatActivity {
         return false; */
     }
 
-    public void drawRoute(int floorFrom){
+    public void drawRoute(int floorFrom, Paint paint, Canvas canvas, Bitmap bitmap, int zoomX, int zoomY){
         if(floorFrom == 0) { //pokiaľ sa vykreľuje prízemie, vykreslí sa ešte prvé poschodie
             for (int count = 0; count <= 1; count++) {
                 for (Field file : files) {
                     String name = file.getName();
                     String[] helper = name.split("_");
                     if (Integer.parseInt(helper[5]) == count) {
-                        drawMap(name, Float.parseFloat(helper[1]), Float.parseFloat(helper[2]), count != 0, 2, 3);
+                        drawMap(name, Float.parseFloat(helper[1]), Float.parseFloat(helper[2]), count != 0, zoomX, zoomY, canvas, paint);
                     }
                 }
             }
@@ -381,7 +386,7 @@ public class FindRouteToRoom3 extends AppCompatActivity {
                     String name = file.getName();
                     String[] helper = name.split("_");
                     if (Integer.parseInt(helper[5]) == count) {
-                        drawMap(name, Float.parseFloat(helper[1]), Float.parseFloat(helper[2]), count != floorFrom, 2, 3);
+                        drawMap(name, Float.parseFloat(helper[1]), Float.parseFloat(helper[2]), count != floorFrom, zoomX, zoomY, canvas, paint);
                     }
                 }
             }
@@ -397,7 +402,7 @@ public class FindRouteToRoom3 extends AppCompatActivity {
             for (int y = 0; y < arrayList2.get(count).length; y++) {
                 for (int x = 0; x < arrayList2.get(count)[y].length; x++) {
                     if (arrayList2.get(count)[y][x] == 1)
-                        canvas.drawRect(x * cellSize, y*3, (x * cellSize) + cellSize, y*3 + cellSize, paint);
+                        canvas.drawRect(x * cellSize, y*zoomY, (x * cellSize) + cellSize, y*zoomY + cellSize, paint);
                 }
             }
         }
@@ -409,24 +414,25 @@ public class FindRouteToRoom3 extends AppCompatActivity {
     }
 
     public void changeFloor(View view) {
-        canvas.drawColor(getResources().getColor(R.color.white));
+        cnvs.drawColor(getResources().getColor(R.color.white));
         buttons.get(btn_clicked).setTextColor(Color.BLACK);
+        zoomIn = 0;
         switch (view.getId()) {
             case R.id.btn_0:
                 btn_clicked = 0;
-                drawRoute(0);
+                drawRoute(0, pnt, cnvs, btm, 2, 3);
                 break;
             case R.id.btn_1:
                 btn_clicked = 1;
-                drawRoute(1);
+                drawRoute(1, pnt, cnvs, btm, 2, 3);
                 break;
             case R.id.btn_2:
                 btn_clicked = 2;
-                drawRoute(2);
+                drawRoute(2, pnt, cnvs, btm, 2, 3);
                 break;
             case R.id.btn_3:
                 btn_clicked = 3;
-                drawRoute(3);
+                drawRoute(3, pnt, cnvs, btm, 2, 3);
                 break;
         }
         btn_ID = view.getId();
@@ -438,15 +444,18 @@ public class FindRouteToRoom3 extends AppCompatActivity {
         for(int i = 0; i < files.length; i++){
             String file = files[i].getName();
             String[] helper = file.split("_");
-            if(Integer.parseInt(helper[5]) == 0) drawMap(file,Float.parseFloat(helper[1]),Float.parseFloat(helper[2]), false, 2, 3);
-            if(Integer.parseInt(helper[5]) == 1) drawMap(file,Float.parseFloat(helper[1]),Float.parseFloat(helper[2]), true, 2, 3);
+            if(Integer.parseInt(helper[5]) == 0) drawMap(file,Float.parseFloat(helper[1]),Float.parseFloat(helper[2]), false, 2, 3, cnvs, pnt);
+            if(Integer.parseInt(helper[5]) == 1) drawMap(file,Float.parseFloat(helper[1]),Float.parseFloat(helper[2]), true, 2, 3, cnvs, pnt);
         }
-        imageView.setImageBitmap(bitmap);
+        imageView.setImageBitmap(btm);
         //imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, (int)(displayWidth*1.2), (int)(displayHeight*0.5), false));
     }
 
-    public void drawMap(String fileName, float x2, float y, boolean opacity, int zoomX, int zoomY) {
+    public void drawMap(String fileName, float x2, float y, boolean opacity, int zoomX, int zoomY, Canvas canvas, Paint paint) {
+        //System.out.println(fileName.charAt(0) + " - " + fileName.charAt(fileName.length()-1));
         String line = "";
+        String stringOfChars = "";
+        String stringOfCharsCoordinates = "";
         int resID = this.getResources().getIdentifier(fileName, "raw", this.getPackageName());
         InputStream inputStream = this.getResources().openRawResource(resID);
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
@@ -531,20 +540,172 @@ public class FindRouteToRoom3 extends AppCompatActivity {
                         canvas.drawRect(x * cellSize, y, (x * cellSize) + cellSize, y + cellSize, paint);
                         break;
                 }
+                if(line.charAt(a) >= 48 && line.charAt(a) <= 55) {
+                    if ((line.charAt(a + 1) == 'X' && line.charAt(a - 1) == 'X') || line.charAt(a - 1) == 'R' || line.charAt(a + 1) == 'R') {
+                        paint.setColor(getResources().getColor(R.color.bcg_color));
+                        if(opacity) {
+                            paint.setAntiAlias(true);
+                            paint.setAlpha(ALPHA);
+                        }
+                        canvas.drawRect(rectF, paint);
+                    }
+                }
+                if(zoomX == 6 && !opacity) {
+                    if (line.charAt(a) >= 48 && line.charAt(a) <= 55) {
+                        for(int i = 0; i < allRooms.length; i++) {
+                            if((fileName.substring(0,1).toUpperCase() + fileName.charAt(fileName.length()-1)).equals(allRooms[i].substring(0,2))) {
+                                for(int j = i; j < positionsOfAllRooms.length; j++) {
+                                    if(((char) positionsOfAllRooms[j]+'0' == line.charAt(a)) && !stringOfChars.contains(allRooms[j])) {
+                                        stringOfChars += allRooms[j] + " ";
+                                        stringOfCharsCoordinates += x * cellSize + "-" + y + "-" + allRooms[j] + "_";
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
                 x++;
             }
             y+=zoomY;
+        }
+
+        for(int i = 0; i < stringOfCharsCoordinates.length(); i++) {
+            String[] helper = stringOfCharsCoordinates.split("_");
+            for(int k = 0; k < helper.length; k++) {
+                String[] helper2 = helper[k].split("-");
+                paint.setColor(Color.BLACK);
+                if(helper2[2].equals("B025")) {
+                    paint.setTextSize(cellSize);
+                    canvas.drawText(helper2[2], Float.parseFloat(helper2[0]), Float.parseFloat(helper2[1]) + cellSize, paint);
+                } else {
+                    paint.setTextSize(cellSize * 2);
+                    canvas.drawText(helper2[2], Float.parseFloat(helper2[0]), Float.parseFloat(helper2[1]) + cellSize * 2, paint);
+                }
+            }
         }
     }
 
     //priblíženie mapy
     public void zoomIn(View view) {
-        imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, (int)(displayWidth*3), (int)(displayHeight*1.3), false));
+        if (zoomIn == 0) {
+            zoomIn++;
+            imageView.setImageBitmap(Bitmap.createScaledBitmap(btm, (int) (displayWidth * 3), (int) (displayHeight * 1.3), false));
+        } else if (zoomIn == 1) {
+            zoomIn++;
+            Bitmap bitmap2 = Bitmap.createBitmap((int)displayWidth*6, (int)displayHeight*2, Bitmap.Config.ARGB_8888);
+            Canvas canvas2 = new Canvas(bitmap2);
+            Paint paint2 = new Paint();
+
+            drawRoute(btn_clicked, paint2, canvas2, bitmap2, 6, 8);
+            imageView.setImageBitmap(bitmap2);
+        }
+        System.out.println(zoomIn);
     }
 
     //oddialenie mapy
     public void zoomOut(View view) { //oddialiť mapu
-        imageView.setImageBitmap(bitmap);
+        if(zoomIn == 1) {
+            zoomIn--;
+            imageView.setImageBitmap(btm);
+        } else if(zoomIn == 2) {
+            zoomIn--;
+            imageView.setImageBitmap(Bitmap.createScaledBitmap(btm, (int) (displayWidth * 3), (int) (displayHeight * 1.3), false));
+        }
+        System.out.println(zoomIn);
+    }
+
+    //okno so slovnou navigáciou
+    public void writeRoute(View view) {
+        if(roomFrom.length() > 0 && roomTo.length() > 0) { //trasa sa vypíše iba pokiaľ používateľ zvolil miestnosti
+            relativeLayout = (RelativeLayout) findViewById(R.id.second_rel);
+            relativeLayout.setAlpha(0.5f);
+
+            linearLayoutRoute = (LinearLayout) findViewById(R.id.linear_listView);
+            linearLayoutRoute.setVisibility(View.VISIBLE);
+            linearLayoutRoute.setAlpha(1f);
+
+            ArrayList<String> writeRoute = new ArrayList<>();
+            ArrayList<Integer> writeRouteImages = new ArrayList<>();
+
+            if (stairs.length() > 0) {
+                if (floorFrom == 0) writeRoute.add("Vaša trasa začína z miestnosti " + roomFrom + " na prízemí");
+                else writeRoute.add("Vaša trasa začína z miestnosti " + roomFrom + " na " + floorFrom + ". poschodí");
+                writeRouteImages.add(R.drawable.walk);
+                if (roomFrom.charAt(0) == roomTo.charAt(0)) { //používateľ hľadá trasu v jednom bloku
+                    writeRoute.add("Pokračujte v naznačenej trase na poschodí");
+                    writeRouteImages.add(R.drawable.walk);
+                    if (floorFrom > floorTo) {
+                        if (floorFrom - floorTo == 1) writeRoute.add("Prejdite cez schodisko o 1 poschodie nižšie");
+                        if (floorFrom - floorTo == 2) writeRoute.add("Prejdite cez schodisko o 2 poschodia nižšie");
+                        if (floorFrom - floorTo == 3) writeRoute.add("Prejdite cez schodisko o 3 poschodia nižšie");
+                        writeRouteImages.add(R.drawable.stairs);
+                    } else {
+                        if (floorTo - floorFrom == 1) writeRoute.add("Prejdite cez schodisko o 1 poschodie vyššie");
+                        if (floorTo - floorFrom == 2) writeRoute.add("Prejdite cez schodisko o 2 poschodia vyššie");
+                        if (floorTo - floorFrom == 3) writeRoute.add("Prejdite cez schodisko o 3 poschodia vyššie");
+                        writeRouteImages.add(R.drawable.stairs);
+                    }
+                    writeRoute.add("Pokračujte v naznačenej trase na poschodí");
+                    writeRouteImages.add(R.drawable.walk);
+                } else { //používateľ hľadá trasu medzi viacerými blokmi
+                    if (floorFrom > floorTo || floorTo == floorFrom) {
+                        writeRoute.add("Pokračujte v naznačenej trase ku schodisku");
+                        writeRouteImages.add(R.drawable.walk);
+                        writeRoute.add("Prejdite cez schodisko až na prízemie");
+                        writeRouteImages.add(R.drawable.stairs);
+                        writeRoute.add("Pokračujte v naznačenej trase na prízemí");
+                        writeRouteImages.add(R.drawable.walk);
+                        if(floorTo != 0) {
+                            writeRoute.add("Prejdite cez schodisko na " + floorTo + ". poschodie");
+                            writeRouteImages.add(R.drawable.stairs);
+                            writeRoute.add("Pokračujte v naznačenej trase na poschodí");
+                            writeRouteImages.add(R.drawable.walk);
+                        }
+                    } else {
+                        writeRoute.add("Pokračujte v naznačenej trase ku schodisku");
+                        writeRouteImages.add(R.drawable.walk);
+                        writeRoute.add("Prejdite cez schodisko na " + floorTo + ". poschodie");
+                        writeRouteImages.add(R.drawable.stairs);
+                        writeRoute.add("Pokračujte v naznačenej trase na poschodí");
+                        writeRouteImages.add(R.drawable.walk);
+                    }
+                }
+                if (floorTo == 0) writeRoute.add("Dostali ste sa do hľadanej miestnosti " + roomTo + " na prízemí");
+                else writeRoute.add("Dostali ste sa do hľadanej miestnosti " + roomTo + " na " + floorTo + ". poschodí");
+                writeRouteImages.add(R.drawable.walk);
+            } else { //pokiaľ sa nejde cez poschodie -> používateľ je na tom istom poschodí
+                if (floorFrom == 0) writeRoute.add("Vaša trasa začína z miestnosti " + roomFrom + " na prízemí");
+                else writeRoute.add("Vaša trasa začína z miestnosti " + roomFrom + " na " + floorFrom + ". poschodí");
+                writeRouteImages.add(R.drawable.walk);
+                writeRoute.add("Hľadaná miestnosť sa nachádza na tom istom poschodí. Pokračujte podľa trasy na mape");
+                writeRouteImages.add(R.drawable.walk);
+                if (floorTo == 0) writeRoute.add("Dostali ste sa do hľadanej miestnosti " + roomTo + " na prízemí");
+                else writeRoute.add("Dostali ste sa do hľadanej miestnosti " + roomTo + " na " + floorTo + ". poschodí");
+                writeRouteImages.add(R.drawable.walk);
+            }
+
+            ArrayList<HashMap<String,String>> arrayList = new ArrayList<>();
+            for (int i = 0; i < writeRoute.size(); i++)
+            {
+                HashMap<String,String> hashMap = new HashMap<>();
+                hashMap.put("text",writeRoute.get(i));
+                hashMap.put("image",writeRouteImages.get(i)+"");
+                arrayList.add(hashMap);
+            }
+            String[] from = {"text","image"};
+            int[] to = {R.id.label,R.id.imageViewRoute};
+
+            SimpleAdapter adapter = new SimpleAdapter(this, arrayList, R.layout.listview_layout_route,from, to);
+            ListView listView = (ListView) findViewById(R.id.listViewRoute);
+            listView.setAdapter(adapter);
+        } else Toast.makeText(this, "Nemáte vybranú žiadnu trasu!", Toast.LENGTH_SHORT).show();
+    }
+
+    //zatvorenie okna zo slovnou navigáciou
+    public void exitLayout(View view) {
+        linearLayoutRoute.setVisibility(View.INVISIBLE);
+        relativeLayout.setAlpha(1f);
     }
 
     //pomocná trieda pri algortimu na hľadanie trasy

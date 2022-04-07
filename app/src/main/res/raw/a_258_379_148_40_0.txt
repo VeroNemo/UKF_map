@@ -1,0 +1,40 @@
+ZZZZZZZZZZZZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+ZZZZZZZZZZZZXA                       BXA    BXA            BXA0000000000000000BXA        BXA        BXXXXXXXXXXXA                                 BX
+ZZZZZZZZZZZZX                         X      X              X000000000000000000X          X          X_________X                                   X
+ZZZZZZZZZZZZX                         X      X              X000000000000000000X          X          X_________X                                   X
+ZZZZZZZZZZZZX                         X      X              X000000000000000000X          X          X____|____X                                   X
+XXXXXXXXXXXXX                         X      X              X000000000000000000X          X          X____|____X                                   X
+XA111111111BX                         X      X              X000000000000000000X          X          X____|____X                                   X
+X11111111111X                         X      X              X000000000000000000X          X          X____|____X                                   X
+X11111111111X                         X      X              X000000000000000000X          X          X____|____X                                   X
+X11111111111X                         X      X              X000000000000000000X          X          X____|____X                                   X
+X11111111111X                         X      X              X000000000000000000X          X          X____|____X                                   X
+X11111111111X                         X      X              X000000000000000000XC        DXC        DX____|____X                                   X
+X11111111111X                         X      X              X000000000000000000XXXXXXXXXXXXXXXXXXXXXXX____|____X                                   X
+X11111111111X                         X      X              X000000000000000000XA        BXA        BX____|____X                                   X
+X11111111111X                         X      X              X000000000000000000X          X          X____|____X                                   X
+X11111111111X                         X      X              X000000000000000000XC        DXC        DX_________X                                   X
+X11111111111X                         X      X              X000000000000000000XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX                                   X
+X11111111111X                         X      X              X000000000000000000XYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYX                                   X
+X11111111111X                         X      X              X000000000000000000XYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYX                                   X
+X11111111111X                         X      X              X000000000000000000XYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYX                                   X
+XC111111111DXC                       DXC    DXC            DXC0000000000000000DXYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYXC                                 DX
+XXXXX1XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX0XXXXYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+YYYYYRYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYRYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYXA          BX
+YYYYYRYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYRYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYX            X
+RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYX            X
+YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYX            X
+YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYX            X
+YYYYYYYYYYYYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX            X
+YYYYYYYYYYYYXA              BXA              BXA              BXA              BXA          BXA                BXA                   BX            X
+YYYYYYYYYYYYX                X                X                X                X            X                  X                     X            X
+YYYYYYYYYYYYX                X                X                X                X            X                  X                     X            X
+YYYYYYYYYYYYX                X                X                X                X            X                  X                     X            X
+YYYYYYYYYYYYX                X                X                X                X            X                  X                     X            X
+YYYYYYYYYYYYX                X                X                X                X            X                  X                     X            X
+YYYYYYYYYYYYX                X                X                X                X            X                  X                     X            X
+YYYYYYYYYYYYX                X                X                X                X            X                  X                     X            X
+YYYYYYYYYYYYX                X                X                X                X            X                  X                     X            X
+YYYYYYYYYYYYX                X                X                X                X            X                  X                     X            X
+YYYYYYYYYYYYXC              DXC              DXC              DXC              DXC          DXC                DXC                   DXC          DX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX

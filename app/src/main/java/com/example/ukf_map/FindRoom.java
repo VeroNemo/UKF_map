@@ -31,8 +31,8 @@ public class FindRoom extends AppCompatActivity {
     private final float[] cornerRT = new float[]{0,0,5,5,0,0,0,0};
     private final float[] cornerLB = new float[]{0,0,0,0,0,0,5,5};
     private final float[] cornerRB = new float[]{0,0,0,0,5,5,0,0};
-    private final String[] allRooms = {"A226", "B025", "B112", "B113", "B114", "B212", "C117", "C118", "C119", "C212", "C217", "C305", "P002", "P006", "S109", "S110"};
-    private final int[] positionsOfAllRooms = {0, 0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 5, 0, 1, 0, 1};
+    private final String[] allRooms = {"A010", "A013", "A111", "A115", "A119", "A223", "A226", "B025", "B112", "B113", "B114", "B212", "C011", "C117", "C118", "C119", "C212", "C217", "C218", "C305", "P002", "P006", "S109", "S110"};
+    private final int[] positionsOfAllRooms = {0, 1, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 0, 1};
 
     public float displayWidth, displayHeight;
     public Bitmap bitmap;
@@ -185,6 +185,12 @@ public class FindRoom extends AppCompatActivity {
                                 paint.setColor(Color.rgb(91, 195, 235));
                                 canvas.drawRect(x*cellSize,y,(x*cellSize)+cellSize, y+cellSize, paint);
                             }
+                            if(line.charAt(x) >= 48 && line.charAt(x) <= 55) {
+                                if ((line.charAt(x + 1) == 'X' && line.charAt(x - 1) == 'X') || line.charAt(x - 1) == 'R' || line.charAt(x + 1) == 'R') {
+                                    paint.setColor(getResources().getColor(R.color.bcg_color));
+                                    canvas.drawRect(rectF, paint);
+                                }
+                            }
                         }
                         y+= cellSize;
                     }
@@ -193,17 +199,18 @@ public class FindRoom extends AppCompatActivity {
         imageView.setImageBitmap(bitmap);
     }
 
-    public void notFoundRoom(View view) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setMessage("Názov miestnosti presne hovorí, kde sa miestnosť nachádza. Napríklad miestnosť C305 -> C = blok, 3 = poschodie (0 = prízemie), 305 = číslo miestnosti");
-        dialog.setTitle("Neviete nájsť správnu miestnosť?");
-        dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-            }
-        });
-        AlertDialog alertDialog = dialog.create();
-        alertDialog.show();
+    public void chooseDepartment(View view) {
+        switch (view.getId()) {
+            case R.id.btn_INF:
+                setContentView(R.layout.layout_katedra_informatiky);
+                break;
+            case R.id.btn_MAT:
+                setContentView(R.layout.layout_katedra_matematiky);
+                break;
+            case R.id.btn_FYZ:
+                setContentView(R.layout.layout_katedra_fyziky);
+                break;
+        }
     }
 
    /* @Override

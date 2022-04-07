@@ -76,7 +76,7 @@ public class FindBlok extends AppCompatActivity {
         } else buttonS.setBackgroundColor(getResources().getColor(R.color.btn_color));
         switch (view.getId()) {
             case R.id.btn_A:
-                textView.setText("Blok A sa nachádza na 1., 2. a 3. poschodí");
+                textView.setText("Blok A sa nachádza na prízemí, 1., 2. a 3. poschodí");
                 drawBlok("A");
                 break;
             case R.id.btn_B:
@@ -84,7 +84,7 @@ public class FindBlok extends AppCompatActivity {
                 drawBlok("B");
                 break;
             case R.id.btn_C:
-                textView.setText("Blok C sa nachádza na 1., 2. a 3. poschodí");
+                textView.setText("Blok C sa nachádza na prízemí, 1., 2. a 3. poschodí");
                 drawBlok("C");
                 break;
             case R.id.btn_P:
@@ -119,13 +119,15 @@ public class FindBlok extends AppCompatActivity {
                 else y = 60;
             } else if(helper[0].equals("c")){
                 cellSize = displayWidth / Float.parseFloat(helper[3]);
-                if(Integer.parseInt(helper[5]) == 2) y = 90 + Float.parseFloat(helper[4])*cellSize;
-                else if(Integer.parseInt(helper[5]) == 3) y = 130 + 2*(Float.parseFloat(helper[4])*cellSize);
+                if(Integer.parseInt(helper[5]) == 1) y = 90 + Float.parseFloat(helper[4])*cellSize;
+                else if(Integer.parseInt(helper[5]) == 2) y = 130 + 2*(Float.parseFloat(helper[4])*cellSize);
+                else if(Integer.parseInt(helper[5]) == 3) y = 170 + 3*(Float.parseFloat(helper[4])*cellSize);
                 else y = 60;
             }  else if(helper[0].equals("a")) {
                 cellSize = displayWidth / Float.parseFloat(helper[3]);
-                if (Integer.parseInt(helper[5]) == 2) y = 90 + Float.parseFloat(helper[4]) * cellSize;
-                else if (Integer.parseInt(helper[5]) == 3) y = 130 + 2 * (Float.parseFloat(helper[4]) * cellSize);
+                if (Integer.parseInt(helper[5]) == 1) y = 90 + Float.parseFloat(helper[4]) * cellSize;
+                else if (Integer.parseInt(helper[5]) == 2) y = 130 + 2*Float.parseFloat(helper[4]) * cellSize;
+                else if (Integer.parseInt(helper[5]) == 3) y = 170 + 3*(Float.parseFloat(helper[4]) * cellSize);
                 else y = 60;
             }else {
                 cellSize = displayWidth / Float.parseFloat(helper[3]);
@@ -156,7 +158,6 @@ public class FindBlok extends AppCompatActivity {
                             case 'R':
                             case 'U':
                             case 'K':
-                            case 'E':
                             case 'S':
                                 paint.setColor(getResources().getColor(R.color.bcg_color));
                                 canvas.drawRect(rectF, paint);
@@ -213,6 +214,12 @@ public class FindBlok extends AppCompatActivity {
                                 paint.setColor(Color.WHITE);
                                 canvas.drawRect(rectF, paint);
                                 break;
+                        }
+                        if(line.charAt(x) >= 48 && line.charAt(x) <= 55) {
+                            if ((line.charAt(x + 1) == 'X' && line.charAt(x - 1) == 'X') || line.charAt(x - 1) == 'R' || line.charAt(x + 1) == 'R') {
+                                paint.setColor(getResources().getColor(R.color.bcg_color));
+                                canvas.drawRect(rectF, paint);
+                            }
                         }
                     }
                     y+= cellSize;

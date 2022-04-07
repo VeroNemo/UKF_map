@@ -152,6 +152,12 @@ public class FindFloor extends AppCompatActivity {
                                 canvas.drawRect(x * cellSize, y, (x * cellSize) + cellSize, y + cellSize, paint);
                                 break;
                         }
+                        if(line.charAt(a) >= 48 && line.charAt(a) <= 55) {
+                            if ((line.charAt(a + 1) == 'X' && line.charAt(a - 1) == 'X') || line.charAt(a - 1) == 'R' || line.charAt(a + 1) == 'R') {
+                                paint.setColor(getResources().getColor(R.color.bcg_color));
+                                canvas.drawRect(rectF, paint);
+                            }
+                        }
                         x++;
                     }
                     y++;
