@@ -32,65 +32,110 @@
         android:layout_height="match_parent"
         android:layout_below="@id/lin_1"
         android:background="@drawable/layout_shape"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/bcg_color2"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40px"
-            android:orientation="vertical">
+            android:layout_marginTop="30px"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btn_FYZ"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:backgroundTint="@color/btn_color"
-                android:fontFamily="@font/bree_serif"
-                android:onClick="chooseDepartment"
-                android:text="Katedra fyziky"
-                android:textColor="@color/black"
-                app:cornerRadius="30px" />
+                android:layout_marginRight="50px"
+                android:orientation="vertical">
 
+                <ImageButton
+                    android:id="@+id/btn_CHEM"
+                    android:layout_width="400px"
+                    android:layout_height="200px"
+                    android:backgroundTint="@color/white"
+                    app:srcCompat="@drawable/chemia"
+                    android:onClick="chooseDepartment"/>
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/bree_serif"
+                    android:text="Katedra chémie"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/btn_FYZ"
+                    android:layout_width="400px"
+                    android:layout_height="200px"
+                    android:backgroundTint="@color/white"
+                    app:srcCompat="@drawable/fyzika"
+                    android:onClick="chooseDepartment"/>
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/bree_serif"
+                    android:text="Katedra fyziky"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:onClick="chooseDepartment"/>
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
+        <ImageButton
+            android:id="@+id/btn_EKO"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40px"
-            android:orientation="vertical">
+            android:layout_marginTop="30px"
+            android:backgroundTint="@color/white"
+            android:paddingTop="60px"
+            android:paddingBottom="60px"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/ekologia"
+            android:onClick="chooseDepartment"/>
 
-            <Button
-                android:id="@+id/btn_INF"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="@color/btn_color"
-                android:fontFamily="@font/bree_serif"
-                android:onClick="chooseDepartment"
-                android:text="Katedra informatiky"
-                android:textColor="@color/black"
-                app:cornerRadius="30px" />
-
-        </LinearLayout>
-
-        <LinearLayout
+        <ImageButton
+            android:id="@+id/btn_GEO"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40px"
-            android:orientation="vertical">
+            android:layout_marginTop="30px"
+            android:backgroundTint="@color/white"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/geografia"
+            android:onClick="chooseDepartment"/>
 
-            <Button
-                android:id="@+id/btn_MAT"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="@color/btn_color"
-                android:fontFamily="@font/bree_serif"
-                android:onClick="chooseDepartment"
-                android:text="Katedra matematiky"
-                android:textColor="@color/black"
-                app:cornerRadius="30px" />
+        <ImageButton
+            android:id="@+id/btn_INF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30px"
+            android:backgroundTint="@color/white"
+            android:paddingTop="60px"
+            android:paddingBottom="60px"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/informatika"
+            android:onClick="chooseDepartment"/>
 
-        </LinearLayout>
+        <ImageButton
+            android:id="@+id/btn_MAT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30px"
+            android:backgroundTint="@color/white"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/matematika"
+            android:onClick="chooseDepartment"/>
 
     </LinearLayout>
 

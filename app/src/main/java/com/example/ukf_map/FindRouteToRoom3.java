@@ -341,32 +341,6 @@ public class FindRouteToRoom3 extends AppCompatActivity {
             return false;
         }
         return false;
-        //BFS - PREHĽADÁVANIE DO ŠÍRKY
-        /*int[][] directions = {{0,1}, {0,-1}, {1,0}, {-1,0}};
-        Queue<Node> queue = new LinkedList<>(); //Vytvorenie rady
-        queue.add(new Node(fromX, fromY)); //vloženie do rady bodu, z ktorého hľadám cestu
-        while (queue.size() > 0) { //dokým nie je rada prázdna
-            Node node = (queue.peek());
-            queue.remove();
-            array[node.x][node.y] = -1; //bod sa nastaví ako navštívený
-            if(node.x == toX && node.y == toY) { //pokiaľ sa bod rovná s hľadaným, našla sa trasa
-                System.out.println("Našla sa cesta");
-                return true;
-            }
-            for(int i = 0; i < directions.length; i++) { //hľadá sa ďalší bod na preskúmanie podľa 4 smerov
-                int newNodeX = node.x + directions[i][0]; //vytvorí sa nový skúmaný bod - súradnica x
-                int newNodeY = node.y + directions[i][1]; //vytvorí sa nový skúmaný bod - súradnica y
-                //pokiaľ bod spĺňa podmienky vloží sa do rady alebo sa ešte skontroluje, či to nie je hľadaný bod už
-                if(newNodeX >= 0 && newNodeY >= 0 && newNodeX < MAX_WIDTH && newNodeY < MAX_HEIGHT && array[newNodeX][newNodeY] != -1) {
-                    if(newNodeX == toX && newNodeY == toY) {
-                        System.out.println("Našla sa cesta");
-                        return true;
-                    }
-                    queue.add(new Node(newNodeX, newNodeY));
-                }
-            }
-        }
-        return false; */
     }
 
     public void drawRoute(int floorFrom, Paint paint, Canvas canvas, Bitmap bitmap, int zoomX, int zoomY){
@@ -575,13 +549,8 @@ public class FindRouteToRoom3 extends AppCompatActivity {
             for(int k = 0; k < helper.length; k++) {
                 String[] helper2 = helper[k].split("-");
                 paint.setColor(Color.BLACK);
-                if(helper2[2].equals("B025")) {
-                    paint.setTextSize(cellSize);
-                    canvas.drawText(helper2[2], Float.parseFloat(helper2[0]), Float.parseFloat(helper2[1]) + cellSize, paint);
-                } else {
-                    paint.setTextSize(cellSize * 2);
-                    canvas.drawText(helper2[2], Float.parseFloat(helper2[0]), Float.parseFloat(helper2[1]) + cellSize * 2, paint);
-                }
+                paint.setTextSize(cellSize * 2);
+                canvas.drawText(helper2[2], Float.parseFloat(helper2[0]), Float.parseFloat(helper2[1]) + cellSize * 2, paint);
             }
         }
     }

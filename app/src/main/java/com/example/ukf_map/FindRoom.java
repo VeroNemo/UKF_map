@@ -210,6 +210,12 @@ public class FindRoom extends AppCompatActivity {
             case R.id.btn_FYZ:
                 setContentView(R.layout.layout_katedra_fyziky);
                 break;
+            case R.id.btn_CHEM:
+                break;
+            case R.id.btn_GEO:
+                break;
+            case R.id.btn_EKO:
+                break;
         }
     }
 

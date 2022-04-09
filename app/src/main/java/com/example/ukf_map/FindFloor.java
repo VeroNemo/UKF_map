@@ -33,6 +33,7 @@ public class FindFloor extends AppCompatActivity {
 
     private final int MAX_WIDTH = 508;
     final int MAX_HEIGHT = 432;
+    final int ALPHA = 40;
 
     private ImageView imageViewFloor;
     public Button button0;
@@ -93,6 +94,7 @@ public class FindFloor extends AppCompatActivity {
 
     public void drawFloors(int floor){
         Field [] files = R.raw.class.getFields();
+        boolean opacity = false;
 
         for(int i = 0; i < files.length; i++){
             String file = files[i].getName();
@@ -105,7 +107,10 @@ public class FindFloor extends AppCompatActivity {
             InputStream inputStream = this.getResources().openRawResource(resID);
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
-            if(helper[5].equals(""+floor)) {
+            if((helper[0].equals("p") || helper[0].equals("v")) && floor != 0) opacity = true;
+            else opacity = false;
+
+            if(helper[5].equals(""+floor) || helper[0].equals("p") || helper[0].equals("v")) {
                 while (true) {
                     try {
                         if ((line = reader.readLine()) == null) break;
@@ -125,36 +130,72 @@ public class FindFloor extends AppCompatActivity {
                             case 'E':
                             case 'S':
                                 paint.setColor(getResources().getColor(R.color.bcg_color));
+                                if(opacity) {
+                                    paint.setAntiAlias(true);
+                                    paint.setAlpha(ALPHA);
+                                }
                                 canvas.drawRect(rectF, paint);
                                 break;
                             case '_': //schodisko
                                 paint.setColor(getResources().getColor(R.color.bcg_color));
+                                if(opacity) {
+                                    paint.setAntiAlias(true);
+                                    paint.setAlpha(ALPHA);
+                                }
                                 canvas.drawRect(x * cellSize, y, (x * cellSize) + cellSize, y + cellSize, paint);
                                 paint.setColor(getResources().getColor(R.color.black));
+                                if(opacity) {
+                                    paint.setAntiAlias(true);
+                                    paint.setAlpha(ALPHA);
+                                }
                                 canvas.drawLine(x * cellSize, y, (x * cellSize) + cellSize, y, paint);
                                 break;
                             case '|': //schodisko
                                 paint.setColor(getResources().getColor(R.color.bcg_color));
+                                if(opacity) {
+                                    paint.setAntiAlias(true);
+                                    paint.setAlpha(ALPHA);
+                                }
                                 canvas.drawRect(x * cellSize, y, (x * cellSize) + cellSize, y + cellSize, paint);
                                 paint.setColor(getResources().getColor(R.color.black));
+                                if(opacity) {
+                                    paint.setAntiAlias(true);
+                                    paint.setAlpha(ALPHA);
+                                }
                                 canvas.drawLine((x * cellSize) + (cellSize / 2), y, (x * cellSize) + (cellSize / 2), y + cellSize, paint);
                                 break;
                             case 'T': //schodisko
                                 paint.setColor(getResources().getColor(R.color.bcg_color));
+                                if(opacity) {
+                                    paint.setAntiAlias(true);
+                                    paint.setAlpha(ALPHA);
+                                }
                                 canvas.drawRect(x * cellSize, y, (x * cellSize) + cellSize, y + cellSize, paint);
                                 paint.setColor(getResources().getColor(R.color.black));
+                                if(opacity) {
+                                    paint.setAntiAlias(true);
+                                    paint.setAlpha(ALPHA);
+                                }
                                 canvas.drawLine((x * cellSize), y + (cellSize / 2), (x * cellSize) + cellSize, y + (cellSize / 2), paint);
                                 break;
                             case 'Z':
                                 break;
                             default:
                                 paint.setColor(Color.WHITE);
+                                if(opacity) {
+                                    paint.setAntiAlias(true);
+                                    paint.setAlpha(ALPHA);
+                                }
                                 canvas.drawRect(x * cellSize, y, (x * cellSize) + cellSize, y + cellSize, paint);
                                 break;
                         }
                         if(line.charAt(a) >= 48 && line.charAt(a) <= 55) {
                             if ((line.charAt(a + 1) == 'X' && line.charAt(a - 1) == 'X') || line.charAt(a - 1) == 'R' || line.charAt(a + 1) == 'R') {
                                 paint.setColor(getResources().getColor(R.color.bcg_color));
+                                if(opacity) {
+                                    paint.setAntiAlias(true);
+                                    paint.setAlpha(ALPHA);
+                                }
                                 canvas.drawRect(rectF, paint);
                             }
                         }
