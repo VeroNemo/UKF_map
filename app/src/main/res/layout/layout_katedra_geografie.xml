@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bcg_color2">
+
+    <LinearLayout
+        android:id="@+id/lin_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="30px"
+        android:paddingTop="30px"
+        android:paddingRight="30px"
+        android:paddingBottom="30px">
+
+        <TextView
+            android:id="@+id/txt_titleForActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bree_serif"
+            android:gravity="center"
+            android:text="Učebne, v ktorých sa vyučuje na Katedre geografie, geoinformatiky a regionálneho rozvoja"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin_2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/lin_1"
+        android:background="@drawable/layout_shape"
+        android:backgroundTint="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40px"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bree_serif"
+                android:text="Blok A"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20px"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_A120"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30px"
+                    android:backgroundTint="@color/btn_color"
+                    android:fontFamily="@font/bree_serif"
+                    android:onClick="chooseRoom"
+                    android:text="A120"
+                    android:textColor="@color/black"
+                    app:cornerRadius="30px" />
+
+                <Button
+                    android:id="@+id/btn_A223"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30px"
+                    android:backgroundTint="@color/btn_color"
+                    android:fontFamily="@font/bree_serif"
+                    android:onClick="chooseRoom"
+                    android:text="A223"
+                    android:textColor="@color/black"
+                    app:cornerRadius="30px" />
+
+                <Button
+                    android:id="@+id/btn_A224"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30px"
+                    android:backgroundTint="@color/btn_color"
+                    android:fontFamily="@font/bree_serif"
+                    android:onClick="chooseRoom"
+                    android:text="A224"
+                    android:textColor="@color/black"
+                    app:cornerRadius="30px" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40px"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bree_serif"
+                android:text="Blok B"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_B204"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30px"
+                    android:backgroundTint="@color/btn_color"
+                    android:fontFamily="@font/bree_serif"
+                    android:onClick="chooseRoom"
+                    android:text="B204"
+                    android:textColor="@color/black"
+                    app:cornerRadius="30px" />
+
+                <Button
+                    android:id="@+id/btn_B205"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30px"
+                    android:backgroundTint="@color/btn_color"
+                    android:fontFamily="@font/bree_serif"
+                    android:onClick="chooseRoom"
+                    android:text="B205"
+                    android:textColor="@color/black"
+                    app:cornerRadius="30px" />
+
+                <Button
+                    android:id="@+id/btn_B212"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/btn_color"
+                    android:fontFamily="@font/bree_serif"
+                    android:onClick="chooseRoom"
+                    android:text="B212"
+                    android:textColor="@color/black"
+                    app:cornerRadius="30px" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40px"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/bree_serif"
+                    android:text="Blok P"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_P002"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/btn_color"
+                        android:fontFamily="@font/bree_serif"
+                        android:onClick="chooseRoom"
+                        android:text="P002"
+                        android:textColor="@color/black"
+                        app:cornerRadius="30px" />
+                </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>
