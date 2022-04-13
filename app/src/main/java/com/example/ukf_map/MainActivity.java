@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void activityFindRouteToRoom(View view) {
-        Intent intent = new Intent(MainActivity.this, FindRouteToRoom3.class);
+        Intent intent = new Intent(MainActivity.this, FindRouteToRoom.class);
         startActivity(intent);
     }
 }

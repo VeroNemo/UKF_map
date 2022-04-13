@@ -125,9 +125,6 @@ public class FindFloor extends AppCompatActivity {
                             case 'X': //stena
                             case 'Y': //chodba
                             case 'R':
-                            case 'U':
-                            case 'K':
-                            case 'E':
                             case 'S':
                                 paint.setColor(getResources().getColor(R.color.bcg_color));
                                 if(opacity) {
@@ -189,7 +186,7 @@ public class FindFloor extends AppCompatActivity {
                                 canvas.drawRect(x * cellSize, y, (x * cellSize) + cellSize, y + cellSize, paint);
                                 break;
                         }
-                        if(line.charAt(a) >= 48 && line.charAt(a) <= 55) {
+                        if(line.charAt(a) >= 48 && line.charAt(a) <= 57) {
                             if ((line.charAt(a + 1) == 'X' && line.charAt(a - 1) == 'X') || line.charAt(a - 1) == 'R' || line.charAt(a + 1) == 'R') {
                                 paint.setColor(getResources().getColor(R.color.bcg_color));
                                 if(opacity) {

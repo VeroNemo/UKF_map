@@ -31,8 +31,8 @@ public class FindRoom extends AppCompatActivity {
     private final float[] cornerRT = new float[]{0,0,5,5,0,0,0,0};
     private final float[] cornerLB = new float[]{0,0,0,0,0,0,5,5};
     private final float[] cornerRB = new float[]{0,0,0,0,5,5,0,0};
-    private final String[] allRooms = {"A010", "A013", "A111", "A115", "A119", "A223", "A226", "B025", "B112", "B113", "B114", "B212", "C011", "C117", "C118", "C119", "C212", "C217", "C218", "C305", "P002", "P006", "S109", "S110"};
-    private final int[] positionsOfAllRooms = {0, 1, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 0, 1};
+    private final String[] allRooms = {"A010", "A013", "A111", "A115", "A119", "A120", "A223", "A224", "A226", "B025", "B112", "B113", "B114", "B204", "B205", "B212", "C010", "C011", "C117", "C118", "C117", "C118", "C119", "C212", "C217", "C218", "C305", "C308", "C309", "P002", "P006", "S109", "S110"};
+    private final int[] positionsOfAllRooms = {0, 1, 3, 4, 5, 8, 6, 9, 7, 0, 1, 2, 3, 5, 6, 4, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 0, 1, 0, 1};
 
     public float displayWidth, displayHeight;
     public Bitmap bitmap;
@@ -113,9 +113,6 @@ public class FindRoom extends AppCompatActivity {
                                 case 'X':
                                 case 'Y':
                                 case 'R':
-                                case 'U':
-                                case 'K':
-                                case 'E':
                                 case 'S':
                                     paint.setColor(getResources().getColor(R.color.bcg_color));
                                     canvas.drawRect(rectF, paint);
@@ -185,7 +182,7 @@ public class FindRoom extends AppCompatActivity {
                                 paint.setColor(Color.rgb(91, 195, 235));
                                 canvas.drawRect(x*cellSize,y,(x*cellSize)+cellSize, y+cellSize, paint);
                             }
-                            if(line.charAt(x) >= 48 && line.charAt(x) <= 55) {
+                            if(line.charAt(x) >= 48 && line.charAt(x) <= 57) {
                                 if ((line.charAt(x + 1) == 'X' && line.charAt(x - 1) == 'X') || line.charAt(x - 1) == 'R' || line.charAt(x + 1) == 'R') {
                                     paint.setColor(getResources().getColor(R.color.bcg_color));
                                     canvas.drawRect(rectF, paint);

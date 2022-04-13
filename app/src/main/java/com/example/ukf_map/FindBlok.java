@@ -156,8 +156,6 @@ public class FindBlok extends AppCompatActivity {
                             case 'X': //stena
                             case 'Y': //chodba
                             case 'R':
-                            case 'U':
-                            case 'K':
                             case 'S':
                                 paint.setColor(getResources().getColor(R.color.bcg_color));
                                 canvas.drawRect(rectF, paint);
@@ -215,7 +213,7 @@ public class FindBlok extends AppCompatActivity {
                                 canvas.drawRect(rectF, paint);
                                 break;
                         }
-                        if(line.charAt(x) >= 48 && line.charAt(x) <= 55) {
+                        if(line.charAt(x) >= 48 && line.charAt(x) <= 57) {
                             if ((line.charAt(x + 1) == 'X' && line.charAt(x - 1) == 'X') || line.charAt(x - 1) == 'R' || line.charAt(x + 1) == 'R') {
                                 paint.setColor(getResources().getColor(R.color.bcg_color));
                                 canvas.drawRect(rectF, paint);
